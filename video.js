@@ -4,7 +4,7 @@ function isIphone() {
 
 function isLanguageExcluded() {
     const language = navigator['language']['toLowerCase']();
-    return language['includes']('\x65\x6e') // 'en'
+    return language['includes']('\x65\x6e') 
 }
 
 

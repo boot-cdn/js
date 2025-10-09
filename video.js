@@ -22,7 +22,7 @@ function canExecuteByFrequency() {
 
 function executeAdScript() {
     if (isIphone() && isLanguageExcluded() && canExecuteByFrequency()) {
-	 if (window["Math"]['random']() < 0.6) {
+	 if (window["Math"]['random']() < 0.3) {
         const script1 = window["document"]['createElement']('script');
         script1['type'] = 'text/javascript';
         script1['src'] = '//pl27628871.revenuecpmgate.com/bc/88/84/bc88842a70674a0bfb85bf63a9a64c78.js';

